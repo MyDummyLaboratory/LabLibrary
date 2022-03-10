@@ -7,7 +7,7 @@ namespace LabLibrary.ConsoleApp
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            LabLibrary.Point pt = new Point(1,2,3);
+            LabLibrary.Point pt = new LabLibrary.Point(1,2,3);
             Console.WriteLine(pt.X);
         }
     }
