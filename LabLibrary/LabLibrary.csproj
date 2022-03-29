@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    
+    <PackageId>LabLibraryCore</PackageId>
+    <Company>École des Ponts ParisTech</Company>
+    <RepositoryUrl>https://github.com/MyDummyLaboratory/LabLibrary</RepositoryUrl>
+    
   </PropertyGroup>
 
 </Project>
