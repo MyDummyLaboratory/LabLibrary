@@ -1,6 +1,9 @@
 name: .Net Test
 
-on: [push]
+on: 
+  push:
+    tags-ignore:
+      -'v*'
 
 env:
   # Path of the Project being Tested and Packaged.
@@ -31,15 +34,5 @@ jobs:
       run: dotnet build --configuration Release
 
     - name : Test Project
-      run: dotnet test --no-build --verbosity normal
-
-    - name: Create NuGet Package
-      run: 
-        dotnet pack ${{ env.PROJECT_PATH }} --no-build -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
-        --configuration Release -p:PackageVersion=0.0.4 --output ${{ env.PKG_OUTPUT_DIR }}
-
-    - name: Push NuGet Package
-      run: |
-        dotnet nuget push ${{ env.PKG_OUTPUT_DIR }}/*.nupkg --api-key ${{ env.GITHUB_TOKEN }} --source ${{ env.NUGET_SRC_URL }}
-        dotnet nuget push ${{ env.PKG_OUTPUT_DIR }}/*.snupkg --api-key ${{ env.GITHUB_TOKEN }} --source ${{ env.NUGET_SRC_URL }}
+      run: dotnet test --verbosity normal
 
