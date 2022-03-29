@@ -34,7 +34,7 @@ jobs:
       run: dotnet test --verbosity normal
 
     - name: Create NuGet Package
-      run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --configuration Release --include-symbols -p:PackageVersion=0.0.2 --output ${{ env.PKG_OUTPUT_DIR }}
+      run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --configuration Release -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -p:PackageVersion=0.0.3 --output ${{ env.PKG_OUTPUT_DIR }}
 
     - name: Push NuGet Package
       run:
