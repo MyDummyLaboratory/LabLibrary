@@ -39,7 +39,8 @@ jobs:
         --configuration Release -p:PackageVersion=0.0.4 --output ${{ env.PKG_OUTPUT_DIR }}
 
     - name: Push NuGet Package
-      run: |
+      run:
         dotnet nuget push ${{ env.PKG_OUTPUT_DIR }}/*.nupkg --api-key ${{ env.GITHUB_TOKEN }} --source ${{ env.NUGET_SRC_URL }}
+      run:
         dotnet nuget push ${{ env.PKG_OUTPUT_DIR }}/*.snupkg --api-key ${{ env.GITHUB_TOKEN }} --source ${{ env.NUGET_SRC_URL }}
 
