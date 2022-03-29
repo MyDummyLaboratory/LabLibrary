@@ -36,8 +36,11 @@ jobs:
     - name: Create NuGet Package
       run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --configuration Release --include-symbols -p:PackageVersion=0.0.1 --output ${{ env.PKG_OUTPUT_DIR }}
 
-    - name: Push NuGet Package
-      run: 
+    - name: Add GitHub Package Repository to NuGet sources 
+      run:
         dotnet nuget add source ${{ env.NUGET_SRC_URL }} --name GPR --username MyDummyLaboratory --password GITHUB_TOKEN --store-password-in-clear-text
+
+    - name: Push NuGet Package
+      run:
         dotnet nuget push ${{ env.PKG_OUTPUT_DIR }}/*.nupkg --source "GPR"
 
