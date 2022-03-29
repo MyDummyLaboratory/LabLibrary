@@ -38,5 +38,5 @@ jobs:
       run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --configuration Release --include-symbols -p:PackageVersion=0.0.1 --output ${{ env.PKG_OUTPUT_DIR }}
 
     - name: Push NuGet Package
-      run: dotnet nuget push ${{ env.PKG_OUTPUT_DIR }}/*.nupkg -s ${{ env.NUGET_SRC_URL }}
+      run: dotnet nuget push ${{ env.PKG_OUTPUT_DIR }}/*.nupkg
 
