@@ -27,22 +27,22 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
+    -name: Restore Dependencies
+      run: dotnet restore
+
     - name : Build Solution
-      run: dotnet build --configuration Release
+      run: dotnet build --no-restore --configuration Release
 
     - name : Test Project
-      run: dotnet test --verbosity normal
+      run: dotnet test --no-build --verbosity normal
 
     - name: Create NuGet Package
       run: 
         dotnet pack ${{ env.PROJECT_PATH }} --no-build -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
-        --configuration Release -p:PackageVersion=0.0.5 --output ${{ env.PKG_OUTPUT_DIR }}
+        --configuration Release -p:PackageVersion=0.0.4 --output ${{ env.PKG_OUTPUT_DIR }}
 
     - name: Push NuGet Package
-      run:
+      run: |
         dotnet nuget push ${{ env.PKG_OUTPUT_DIR }}/*.nupkg --api-key ${{ env.GITHUB_TOKEN }} --source ${{ env.NUGET_SRC_URL }}
-
-    - name: Push Symbols NuGet Package
-      run:
         dotnet nuget push ${{ env.PKG_OUTPUT_DIR }}/*.snupkg --api-key ${{ env.GITHUB_TOKEN }} --source ${{ env.NUGET_SRC_URL }}
 
