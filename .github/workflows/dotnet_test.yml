@@ -27,11 +27,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    -name: Restore Dependencies
-      run: dotnet restore
-
     - name : Build Solution
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build --configuration Release
 
     - name : Test Project
       run: dotnet test --no-build --verbosity normal
