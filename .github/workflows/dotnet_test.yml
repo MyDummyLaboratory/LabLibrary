@@ -2,6 +2,17 @@ name: .Net Test
 
 on: [push]
 
+env:
+  # Path of the Project being Tested and Packaged.
+  PROJECT_PATH: 'LabLibrary/LabLibrary.csproj'
+  # Output directory for the NuGet Package
+  PKG_OUTPUT_DIR: ${{ github.workspace }}\output
+  # URL of the Github Package Repository
+  NUGET_SRC_URL: https://nuget.pkg.github.com/MyDummyLaboratory/index.json
+
+  # Github Token generated for the workflow
+  GITHUB_TOKEN: ${{ github.token }}
+
 jobs:
   build-and-test:
 
@@ -10,12 +21,21 @@ jobs:
     steps:
     - name: Check-out Repository
       uses: actions/checkout@v3
+
     - name: Setup .Net
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
+
     - name : Build Solution
       run: dotnet build --configuration Release
+
     - name : Test Project
       run: dotnet test --verbosity normal
+
+    - name: Create NuGet Package
+      run: dotnet pack ${{ env.PROJECT_PATH }} --nobuild --configuration Release --include-symbols -p:PackageVersion=0.0.1 --output ${{ env.PKG_OUTPUT_DIR }}
+
+    - name: Push NuGet Package
+      run: dotnet nuget push ${{ env.PKG_OUTPUT_DIR }}\*.nupgk -k ${{ env.GITHUB_TOKEN }} -s ${{ env.NUGET_SRC_URL }}
 
