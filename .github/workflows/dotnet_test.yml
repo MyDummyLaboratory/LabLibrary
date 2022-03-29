@@ -6,7 +6,7 @@ env:
   # Path of the Project being Tested and Packaged.
   PROJECT_PATH: 'LabLibrary/LabLibrary.csproj'
   # Output directory for the NuGet Package
-  PKG_OUTPUT_DIR: ${{ github.workspace }}\output
+  PKG_OUTPUT_DIR: ${{ github.workspace }}/output
   # URL of the Github Package Repository
   NUGET_SRC_URL: https://nuget.pkg.github.com/MyDummyLaboratory/index.json
 
@@ -37,5 +37,5 @@ jobs:
       run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --configuration Release --include-symbols -p:PackageVersion=0.0.1 --output ${{ env.PKG_OUTPUT_DIR }}
 
     - name: Push NuGet Package
-      run: dotnet nuget push ${{ env.PKG_OUTPUT_DIR }}\*.nupgk -k ${{ env.GITHUB_TOKEN }} -s ${{ env.NUGET_SRC_URL }}
+      run: dotnet nuget push ${{ env.PKG_OUTPUT_DIR }}/*.nupgk -k ${{ env.GITHUB_TOKEN }} -s ${{ env.NUGET_SRC_URL }}
 
