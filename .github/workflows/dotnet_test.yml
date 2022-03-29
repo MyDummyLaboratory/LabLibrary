@@ -1,0 +1,20 @@
+name: .Net Test
+
+on: [push]
+
+jobs:
+  build-project:
+
+    runs on: ubuntu-latest
+
+    setps:
+    - uses: actions/checkout@v2
+    - name: Setup .Net
+      uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version : 6.0.x
+    - name : Build Solution
+      run: dotnet build --configuration Release
+    - name : Test Project
+      run: dotnet test --verbosity normal
+
