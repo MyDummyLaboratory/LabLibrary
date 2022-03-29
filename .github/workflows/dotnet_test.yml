@@ -38,7 +38,7 @@ jobs:
 
     - name: Add GitHub Package Repository to NuGet sources 
       run:
-        dotnet nuget add source ${{ env.NUGET_SRC_URL }} --name GPR --username MyDummyLaboratory --password GITHUB_TOKEN --store-password-in-clear-text
+        dotnet nuget add source ${{ env.NUGET_SRC_URL }} --name GPR --username MyDummyLaboratory --password ${{ env.GITHUB_TOKEN }} --store-password-in-clear-text
 
     - name: Push NuGet Package
       run:
