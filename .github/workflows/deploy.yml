@@ -1,4 +1,4 @@
-name: Deploy NuGet and Docs
+name: Deploy
 
 on:
   workflow_dispatch:
