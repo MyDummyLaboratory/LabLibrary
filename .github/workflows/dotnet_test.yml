@@ -1,9 +1,6 @@
 name: .Net Test
 
-on: 
-  push:
-    tags-ignore:
-      -'v*'
+on: [push]
 
 env:
   # Path of the Project being Tested and Packaged.
